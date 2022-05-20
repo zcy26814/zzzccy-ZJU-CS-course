@@ -1,0 +1,46 @@
+﻿  testallocator.cpp
+c:\users\27848\desktop\面向对象大作业\codes\test file\memory pool\memorypool.h(101): warning C4018: “<”: 有符号/无符号不匹配
+  c:\users\27848\desktop\面向对象大作业\codes\test file\memory pool\memorypool.h(71): note: 编译类 模板 成员函数“myObject *memorypool<T>::allocate(memorypool<T>::std::size_type)”时
+          with
+          [
+              T=myObject
+          ]
+  c:\users\27848\desktop\面向对象大作业\codes\test file\memory pool\memorypool.h(195): note: 参见对正在编译的函数 模板 实例化“myObject *memorypool<T>::allocate(memorypool<T>::std::size_type)”的引用
+          with
+          [
+              T=myObject
+          ]
+  c:\users\27848\desktop\面向对象大作业\codes\test file\memory pool\memorypool.h(165): note: 参见对正在编译的类 模板 实例化“memorypool<T>”的引用
+          with
+          [
+              T=myObject
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\xmemory0(883): note: 参见对正在编译的类 模板 实例化“MyAllocator<T>”的引用
+          with
+          [
+              T=myObject
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(450): note: 参见对正在编译的类 模板 实例化“std::_Wrap_alloc<MyAllocator<T>>”的引用
+          with
+          [
+              T=myObject
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(502): note: 参见对正在编译的类 模板 实例化“std::_Vec_base_types<_Ty,_Alloc>”的引用
+          with
+          [
+              _Ty=myObject,
+              _Alloc=MyAllocator<myObject>
+          ]
+  c:\program files (x86)\microsoft visual studio 14.0\vc\include\vector(680): note: 参见对正在编译的类 模板 实例化“std::_Vector_alloc<std::_Vec_base_types<_Ty,_Alloc>>”的引用
+          with
+          [
+              _Ty=myObject,
+              _Alloc=MyAllocator<myObject>
+          ]
+  c:\users\27848\desktop\面向对象大作业\codes\test file\memory pool\testallocator.cpp(114): note: 参见对正在编译的类 模板 实例化“std::vector<T,MyAllocator<T>>”的引用
+          with
+          [
+              T=myObject
+          ]
+  memory pool.vcxproj -> C:\Users\27848\Desktop\面向对象大作业\codes\test file\Debug\memory pool.exe
+  memory pool.vcxproj -> C:\Users\27848\Desktop\面向对象大作业\codes\test file\Debug\memory pool.pdb (Full PDB)
