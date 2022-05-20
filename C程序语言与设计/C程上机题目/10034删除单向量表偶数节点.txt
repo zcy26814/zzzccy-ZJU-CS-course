@@ -1,0 +1,63 @@
+题目内容描述：
+
+程序填空，不要改变与输入输出有关的语句。
+输入若干个正整数（输入-1为结束标志），并建立一个单向链表，将其中的偶数值结点删除后输出。
+定义函数struct stud_node *DeleteDoc(struct stud_node *head)删除链表中偶数值结点。
+输入输出示例：括号内为说明
+输入：
+1 2 3 4 5 6 7 -1
+输出：
+1 3 5 7
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+struct stud_node{
+	int num;
+	struct stud_node *next;
+};
+struct stud_node *Creat_Stu_Doc();
+struct stud_node *DeleteDoc(struct stud_node *head);
+void Ptrint_Stu_Doc(struct stud_node *head);
+void main()
+{
+	struct stud_node *head;
+
+	head=Creat_Stu_Doc();
+	head=DeleteDoc(head);
+	Ptrint_Stu_Doc(head);
+}
+struct stud_node *Creat_Stu_Doc()
+{
+	struct stud_node *head,*tail,*p;
+	int num;
+	int size=sizeof(struct stud_node);
+
+	head=tail=NULL;
+	scanf("%d",&num);
+	while(num!=-1){
+		p=(struct stud_node *)malloc(size);
+		p->num=num;
+		p->next=NULL;
+		if(head==NULL)
+			head=p;
+		else
+			tail->next=p;
+		tail=p;
+		scanf("%d",&num);
+	}
+	return head;
+}
+void Ptrint_Stu_Doc(struct stud_node *head)
+{
+	struct stud_node *ptr;
+	if(head==NULL){
+		printf("No Records\n");
+		return;
+	}
+	for(ptr=head;ptr;ptr=ptr->next)
+		printf("%d ",ptr->num);
+	printf("\n");
+}
+/*---------*/
