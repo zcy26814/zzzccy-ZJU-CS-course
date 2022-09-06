@@ -1,0 +1,6 @@
+1、如何查看html界面？
+    用vscode打开html文件，安装Live Server插件后用其打开页面即可。
+2、如何看其他的json数据的抽象语法树呢？
+    将html文件中 d3.json("ast.json",function(erro,root) 中"ast.json"改为所需要的json文件即可。
+3、三个html分别是什么？
+    visual1.html和visual2.html分别是两种不同的绘制方法；visual2_vertical.html则是将visual2中的语法树竖着绘制，并且叶子节点（终结符）为红色，非叶节点（非终结符）为黑色。

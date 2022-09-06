@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>d3-tree树图实现</title>
+    <style type="text/css">
+      /* 圈圈节点样式 */
+      .node circle{
+        fill: #fff;
+        stroke: steelblue;
+        stroke-width:1.5px;
+      }
+      /* 文字样式 */
+      .node text{
+        font-size: 12px;
+      }
+      /* 连线的样式 */
+      .link{
+        fill: none;
+        stroke: #ccc;
+        stroke-width: 1.5px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <a href="javascript:baocun()">下载本页面为图片</a>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src = "http://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script type="text/javascript">
+      function baocun(){
+        /*通过上面的div id="content_cf" 获取到canvas画布*/
+        html2canvas(document.querySelector("#content_cf")).then(canvas => {
+          // document.body.appendChild(canvas);/*这是直接把画布图片追加到页面上，页面上直接就能看到*/
+          // var imgURL = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // 通过canvas画布生成的图片的url 
+          // window.location.href= imgURL;/*这是直接通过上面获取的链接直接下载，这个下载很粗糙，下载的图片没有后缀名，虽然可以打开为图片；故而优化出一下方法*/
+          /**
+           * 获取mimeType
+           * @param  {String} type the old mime-type
+           * @return the new mime-type
+           */
+          var type = 'png';
+          var imgData = canvas.toDataURL(type);
+          
+          var _fixType = function(type) {
+            type = type.toLowerCase().replace(/jpg/i, 'jpeg');
+            var r = type.match(/png|jpeg|bmp|gif/)[0];
+            return 'image/' + r;
+          };
+          // 加工image data，替换mime type				
+          imgData = imgData.replace(_fixType(type),'image/octet-stream');
+          
+          /**
+           * 在本地进行文件保存
+           * @param  {String} data     要保存到本地的图片数据
+           * @param  {String} filename 文件名
+           */
+          var saveFile = function(data, filename){
+            var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+            save_link.href = data;
+            save_link.download = filename;
+            
+            var event = document.createEvent('MouseEvents');
+            event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+            save_link.dispatchEvent(event);
+          };
+              
+          // 下载后的文件名
+          var filename = '志愿方案' + (new Date()).getTime() + '.' + type;
+          // download
+          saveFile(imgData,filename);
+        });
+      }
+    </script> -->
+
+    <div id="content_cf">
+    <!-- 0.引入d3.js库 -->
+    <script src="https://d3js.org/d3.v3.js"></script>
+    <script type="text/javascript">
+      // 1、 选中页面给页面添加svg标签；设置Svg绘制区域的宽和高；添加g元素(svg的group分组标签元素)并设置位置。
+      var width = 2000;
+      var height = 4000;
+      var svg = d3.select('body')
+              .append('svg')
+              .attr('width',width)
+              .attr('height',height)
+              .append('g')
+              .attr('transform','translate(50,0)')
+      // 2、生成树状布局，设置树图布局容器尺寸。
+      var tree = d3.layout.tree()
+              .size([width, height]);
+      // 3、对角线生成器,并旋转90度。
+      var diagonal = d3.svg.diagonal()
+              .projection(d => [d.y,d.x]);  //横纵坐标对调(x,y) => (y,x)        
+      // 4、请求数据：
+      d3.json('./ast.json', function(error,root){
+          // 4.1获取nodes节点数组和links连线数组。
+          var nodes = tree.nodes(root);
+          var links = tree.links(nodes);
+          // 4.2生成连线。
+          var link = svg.selectAll('.link')
+                  .data(links)
+                  .enter()
+                  .append('path')
+                  .attr('class','link')
+                  .attr('d',diagonal)    
+          // 4.3生成节点。
+          var node = svg.selectAll('.node')
+                  .data(nodes)
+                  .enter()
+                  .append('g')
+                  .attr('class','node')
+                  .attr('transform',function(d){
+                    return 'translate(' + d.y + ',' + d.x + ')';
+                  })    
+                      
+          // 4.4给节点添加圆圈，设置半径。
+          node.append('circle')
+              .attr('r',5);
+          // 4.5给节点添加文本，设置文本的样式位置。
+          node.append('text')
+              .text(d=>d.name)
+              .attr('dx',d=> d.children? -15:15)
+              .attr('dy',5)
+              .attr('text-anchor',d=> d.children? 'end':'start');
+      })   
+    </script>
+    </div>
+
+  </body>
+</html>
